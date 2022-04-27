@@ -1,6 +1,6 @@
 <template>
   <div class="ctr">
-    <question-vue v-if="questionsAnswered < questions.length" :questions="questions"></question-vue>
+    <question-vue v-if="questionsAnswered < questions.length" :questions="questions" :questionsAnswered="questionsAnswered" @question-answered="selectAnswer"></question-vue>
     <result-vue v-else></result-vue>
     <button type="button" class="reset-btn" @click="resetFn">Reset</button>
 </div>
@@ -19,6 +19,7 @@ import ResultVue from "./components/ResultVue.vue"
     data() {
       return {
         questionsAnswered: 0,
+        totalCorrect: 0,
         questions: [
             {
                 q: 'What is 2 + 2?', 
@@ -99,6 +100,12 @@ import ResultVue from "./components/ResultVue.vue"
     methods: {
       resetFn() {
         this.questionsAnswered = 0
+      },
+      selectAnswer(is_correct) {
+          if (is_correct) {
+              this.totalCorrect++;
+          }
+          this.questionsAnswered++;
       }
     }
   }
