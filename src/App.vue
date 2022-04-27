@@ -1,8 +1,8 @@
 <template>
   <div class="ctr">
     <question-vue v-if="questionsAnswered < questions.length" :questions="questions" :questionsAnswered="questionsAnswered" @question-answered="selectAnswer"></question-vue>
-    <result-vue v-else></result-vue>
-    <button type="button" class="reset-btn" @click="resetFn">Reset</button>
+    <result-vue v-else :results="results" :totalCorrect="totalCorrect"></result-vue>
+    <button type="button" class="reset-btn" @click.prevent="resetFn" v-if="this.questionsAnswered === questions.length">Reset</button>
 </div>
 </template>
 
@@ -99,7 +99,8 @@ import ResultVue from "./components/ResultVue.vue"
     },
     methods: {
       resetFn() {
-        this.questionsAnswered = 0
+        this.questionsAnswered = 0;
+        this.totalCorrect = 0;
       },
       selectAnswer(is_correct) {
           if (is_correct) {
@@ -110,7 +111,3 @@ import ResultVue from "./components/ResultVue.vue"
     }
   }
 </script>
-
-<style>
-
-</style>
