@@ -1,7 +1,9 @@
 <template>
   <div class="ctr">
-    <question-vue v-if="questionsAnswered < questions.length" :questions="questions" :questionsAnswered="questionsAnswered" @question-answered="selectAnswer"></question-vue>
-    <result-vue v-else :results="results" :totalCorrect="totalCorrect"></result-vue>
+    <transition name="fade" mode="out-in">
+        <question-vue v-if="questionsAnswered < questions.length" :questions="questions" :questionsAnswered="questionsAnswered" @question-answered="selectAnswer"></question-vue>
+        <result-vue v-else :results="results" :totalCorrect="totalCorrect"></result-vue>
+    </transition>
     <button type="button" class="reset-btn" @click.prevent="resetFn" v-if="this.questionsAnswered === questions.length">Reset</button>
 </div>
 </template>
